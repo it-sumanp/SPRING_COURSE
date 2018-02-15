@@ -1,5 +1,8 @@
 package com.akhilesh.course.service;
 
+import javax.persistence.EntityManager;
+import javax.persistence.PersistenceContext;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -16,6 +19,9 @@ public class StudentServiceImpl implements StudentService {
 
     @Autowired
     CourseService courseService;
+
+    @PersistenceContext
+    EntityManager entityManager;
 
     @Override
     public Iterable<Student> getStudents() {
@@ -34,7 +40,10 @@ public class StudentServiceImpl implements StudentService {
     public Student createStudent(Student student) {
 
         validateCourse(student.getCourse().getCourseId());
-        return studentRepository.saveAndFlush(student);
+        student = studentRepository.saveAndFlush(student);
+        entityManager.refresh(student);
+
+        return student;
     }
 
     private void validateCourse(int courseId) {

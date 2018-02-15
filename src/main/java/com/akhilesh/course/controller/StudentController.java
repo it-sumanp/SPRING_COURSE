@@ -1,5 +1,7 @@
 package com.akhilesh.course.controller;
 
+import java.util.Collection;
+
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -7,6 +9,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.akhilesh.course.model.Student;
@@ -21,19 +24,20 @@ public class StudentController {
     StudentService studentService;
 
     @RequestMapping(method = RequestMethod.POST, path = "/")
-    public Student createStudents(@Valid @RequestBody Student student) {
+    public @ResponseBody Student createStudents(@Valid @RequestBody Student student) {
 
-        return studentService.createStudent(student);
+        student = studentService.createStudent(student);
+        return student = studentService.getStudentById(student.getStudentId());
     }
 
     @RequestMapping(method = RequestMethod.GET, path = "/")
-    public Iterable<Student> getStudents() {
+    public @ResponseBody Collection<Student> getStudents() {
 
-        return studentService.getStudents();
+        return (Collection<Student>) studentService.getStudents();
     }
 
     @RequestMapping(method = RequestMethod.GET, path = "/{studentId}")
-    public Student getStudentById(@PathVariable Integer studentId) {
+    public @ResponseBody Student getStudentById(@PathVariable Integer studentId) {
 
         return studentService.getStudentById(studentId);
     }

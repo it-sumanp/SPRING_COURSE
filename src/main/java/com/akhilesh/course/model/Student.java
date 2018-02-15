@@ -12,6 +12,8 @@ import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
 
+import org.hibernate.validator.constraints.NotEmpty;
+
 import com.akhilesh.course.constants.Status;
 
 
@@ -24,9 +26,11 @@ public class Student {
     @Column(name = "STUDENT_ID", nullable = false)
     private int studentId;
 
+    @NotEmpty
     @Column(name = "STUDENT_NAME", nullable = false)
     private String studentName;
 
+    @NotEmpty
     @Column(name = "ADDRESS", nullable = false)
     private String address;
 

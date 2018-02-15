@@ -1,9 +1,12 @@
 package com.akhilesh.course.controller;
 
+import java.util.Collection;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.akhilesh.course.model.Course;
@@ -18,14 +21,14 @@ public class CourseController {
     CourseService courseService;
 
     @RequestMapping(method = RequestMethod.GET, path = "/")
-    private Iterable<Course> getCources() {
+    private @ResponseBody Collection<Course> getCources() {
 
-        return courseService.getCources();
+        return (Collection<Course>) courseService.getCources();
 
     }
 
     @RequestMapping(method = RequestMethod.GET, path = "/{courseId}")
-    private Course getCourceById(@PathVariable Integer courseId) {
+    private @ResponseBody Course getCourceById(@PathVariable Integer courseId) {
 
         return courseService.getCourceById(courseId);
 
